@@ -285,38 +285,32 @@ def start_multi_terminals(parts_list, terminal_add, f_part, func_att):
 
 
 if __name__ == '__main__':
-    attacker = FuckYouRussianShip()
+    while True:
+        attacker = FuckYouRussianShip()
+        if not attacker.no_clear:
+            attacker.clear()
+        attacker.checkReq()
+        attacker.checkUpdate()
+        Thread(target=attacker.cleaner, daemon=True).start()
+        Thread(target=attacker.print_statistic, daemon=True).start()
 
-    if platform.system() == "Linux":
-        if which('xterm') is None:
-            os.system("sudo apt install xterm")
+        if attacker.threads <= 500:
+            attacker_threading(attacker.threads, attacker.mainth)
+        else:
+            process_count = attacker.threads // 500
+            parts = attacker.parts_recursive(attacker.threads)
+            first_part = parts[0]
+            del parts[0]
 
-    if not attacker.no_clear:
-        attacker.clear()
-    attacker.checkReq()
-    # attacker.checkUpdate()
+            terminal_additional = ''
 
-    thread_count = attacker.threads
-    attack_func = attacker.mainth
-    Thread(target=attacker.cleaner, daemon=True).start()
-    Thread(target=attacker.print_statistic, daemon=True).start()
-    # Thread(target=regenerate_threading, daemon=True).start()
+            if attacker.no_clear:
+                terminal_additional += "-n "
+            if attacker.proxy_view:
+                terminal_additional += "-p "
+            if attacker.targets:
+                terminal_additional += f"-t {' '.join(attacker.targets)} "
 
-    if attacker.threads <= 500:
-        attacker_threading(attacker.threads, attacker.mainth)
-    else:
-        process_count = attacker.threads // 500
-        parts = attacker.parts_recursive(attacker.threads)
-        first_part = parts[0]
-        del parts[0]
-
-        terminal_additional = ''
-
-        if attacker.no_clear:
-            terminal_additional += "-n "
-        if attacker.proxy_view:
-            terminal_additional += "-p "
-        if attacker.targets:
-            terminal_additional += f"-t {' '.join(attacker.targets)} "
-
-        start_multi_terminals(parts, terminal_additional, first_part, attacker.mainth)
+            for parts_threads in parts:
+                generation_process(parts_threads, terminal_additional)
+            attacker_threading(first_part, attacker.mainth)
