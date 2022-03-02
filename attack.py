@@ -290,7 +290,10 @@ if __name__ == '__main__':
         if not attacker.no_clear:
             attacker.clear()
         attacker.checkReq()
-        attacker.checkUpdate()
+        # attacker.checkUpdate()
+
+        thread_count = attacker.threads
+        attack_func = attacker.mainth
         Thread(target=attacker.cleaner, daemon=True).start()
         Thread(target=attacker.print_statistic, daemon=True).start()
 
@@ -311,6 +314,4 @@ if __name__ == '__main__':
             if attacker.targets:
                 terminal_additional += f"-t {' '.join(attacker.targets)} "
 
-            for parts_threads in parts:
-                generation_process(parts_threads, terminal_additional)
-            attacker_threading(first_part, attacker.mainth)
+            start_multi_terminals(parts, terminal_additional, first_part, attacker.mainth)
