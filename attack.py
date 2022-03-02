@@ -68,7 +68,6 @@ class FuckYouRussianShip:
 
     @staticmethod
     def clear():
-        gc.collect()
         if platform.system() == "Linux":
             return system('clear')
         else:
@@ -208,7 +207,6 @@ class FuckYouRussianShip:
             finally:
                 threads_count -= 1
                 del attack
-                gc.collect()
                 return self.mainth()
 
     @staticmethod
