@@ -180,6 +180,7 @@ class FuckYouRussianShip:
                 self.write_statistic_success(site, attack.status_code)
 
                 if attack.status_code >= 302:
+                    del attack
                     for proxy in data['proxy']:
                         if self.proxy_view:
                             print('USING PROXY:' + proxy["ip"] + " " + proxy["auth"])
@@ -206,7 +207,6 @@ class FuckYouRussianShip:
                 continue
             finally:
                 threads_count -= 1
-                del attack
                 return self.mainth()
 
     @staticmethod
