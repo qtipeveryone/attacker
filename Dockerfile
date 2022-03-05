@@ -6,4 +6,4 @@ RUN pip install -r requirements.txt
 
 COPY ./attack.py .
 
-ENTRYPOINT [ "python", "attack.py"]
+ENTRYPOINT [ "python", "attack_docker.py"]
