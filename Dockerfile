@@ -4,9 +4,10 @@ COPY ./requirements.txt .
 
 RUN pip install -r requirements.txt
 
-COPY ./attack_docker.py .
+COPY *.py .
 
-ENTRYPOINT [ "python", "attack_docker.py"]
+#ENTRYPOINT [ "python", "attack_docker.py"]
+ENTRYPOINT [ "python", "attack.py"]
 
 # If you need add target
 #ENTRYPOINT [ "python", "attack_docker.py", "-t http://nlmk.com"]
