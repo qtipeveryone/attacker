@@ -6,4 +6,4 @@ if [ -z "$countContainer" ]; then
     countContainer=30
 fi
 
-docker-compose up -d --scale ship=$countContainer
+docker-compose up -d --scale attacker=$countContainer

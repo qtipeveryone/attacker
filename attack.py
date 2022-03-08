@@ -38,7 +38,7 @@ attack_func = False
 
 class FuckYouRussianShip:
     VERSION = 7
-    HOSTS = ["http://65.108.20.65"]
+    HOSTS = ["https://hutin-puy.nadom.app"]
     MAX_REQUESTS = 5000
     SUPPORTED_PLATFORMS = {
         'linux': 'Linux'

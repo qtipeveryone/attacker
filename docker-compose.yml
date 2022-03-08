@@ -5,6 +5,15 @@ services:
   attacker:
     build: .
     restart: always
+    network_mode: host
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
+
     environment:
       ATTACKER_THREADS: 500
+      #http_proxy: socks5://localhost:9050
+      #https_proxy: socks5://localhost:9050
       #ATTACKER_TARGET: https://kremlin.ru # Target one certain domain.
