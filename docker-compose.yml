@@ -22,3 +22,5 @@ services:
       # sites retrieved by API.
       # NOTE: JSON should be valid.
       #ATTACKER_TARGETS: '["https://kremlin.ru", "https://sberbank.com"]'
+      #http_proxy: socks5://localhost:9050
+      #https_proxy: socks5://localhost:9050
