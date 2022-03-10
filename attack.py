@@ -51,17 +51,9 @@ class FuckYouRussianShip:
         self.no_clear = self.args.no_clear
         self.proxy_view = self.args.proxy_view
         self.use_gc = self.args.use_gc
-
         self.targets = self.args.targets
         self.threads = int(self.args.threads)
-
-        try:
-            self.HOSTS = json.loads(
-                requests.get("https://hutin-puy.nadom.app/hosts.json").content)
-        except Exception:
-            sleep(5)
-            self.HOSTS = json.loads(
-                requests.get("https://hutin-puy.nadom.app/hosts.json").content)
+        self.HOSTS = json.loads(requests.get(self.HOSTS_URL).content)
 
         global work_statistic
         global statistic
