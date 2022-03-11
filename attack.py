@@ -40,9 +40,6 @@ class FuckYouRussianShip:
     VERSION = 7
     HOSTS = ["https://hutin-puy.nadom.app"]
     MAX_REQUESTS = 5000
-    SUPPORTED_PLATFORMS = {
-        'linux': 'Linux'
-    }
 
     def __init__(self):
         disable_warnings()
