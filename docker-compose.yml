@@ -2,8 +2,19 @@ version: '3'
 services:
   # To run several containers in parallel use scale argument:
   # docker-compose up --build --scale attacker=5
+  dns:
+    build:
+      context: .
+      dockerfile: Dockerfile.dns
+    restart: always
+    network_mode: host
+    volumes:
+      - ./dnsmasq.conf:/etc/dnsmasq.conf
+    cap_add:
+      - NET_ADMIN
   attacker:
     build: .
+    image: attacker
     restart: always
     network_mode: host
     ulimits:
@@ -14,13 +25,11 @@ services:
 
     environment:
       # Defines the number of threads used in the script.
-      ATTACKER_THREADS: 500
-      #http_proxy: socks5://localhost:9050
-      #https_proxy: socks5://localhost:9050
+      ATTACKER_THREADS: 100
 
       # Defines target sites that will be used instead of a dynamic list of
       # sites retrieved by API.
       # NOTE: JSON should be valid.
       #ATTACKER_TARGETS: '["https://kremlin.ru", "https://sberbank.com"]'
-      #http_proxy: socks5://localhost:9050
-      #https_proxy: socks5://localhost:9050
+      http_proxy: socks5://localhost:9050
+      https_proxy: socks5://localhost:9050

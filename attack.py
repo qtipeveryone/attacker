@@ -28,8 +28,8 @@ thread_count = 0
 
 
 class FuckYouRussianShip:
-    VERSION = 7
-    HOSTS = ["https://hutin-puy.nadom.app"]
+    HOSTS = []
+    HOSTS_URL = 'https://hutin-puy.nadom.app/hosts.json'
     MAX_REQUESTS = 5000
 
     def __init__(self):
